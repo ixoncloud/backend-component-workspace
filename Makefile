@@ -1,0 +1,107 @@
+PYTHON_MINIMUN_MINOR_VER := 9
+CBC_PATH := './functions/'
+
+# ######
+# Autodetect Python location and version.
+# ######
+
+# Detect echo location for command line output.
+ifeq (,$(ECHO_BIN))
+ifeq ($(OS),Windows_NT)
+ECHO_BIN := echo
+else
+ECHO_BIN := $(shell which echo)
+endif
+endif
+
+# Python interpreter location for the venv environment.
+ifeq (,$(PYTHON_BIN))
+ifeq ($(OS),Windows_NT)
+PYTHON_BIN := ./venv/Scripts/python.exe
+else
+PYTHON_BIN := ./venv/bin/python3
+endif
+endif
+
+# Python interpreter location for host machine.
+ifeq (,$(wildcard $(PYTHON_BIN)))
+ifeq ($(OS),Windows_NT)
+HOST_PYTHON_BIN := $(shell where python)
+else
+HOST_PYTHON_BIN := $(shell which python3 2> /dev/null)
+endif
+endif
+
+# Python interpreter version for host machine.
+ifeq (,$(wildcard $(PYTHON_BIN)))
+ifeq (,$(wildcard $(HOST_PYTHON_BIN)))
+HOST_PYTHON_MAJOR_VER :=
+HOST_PYTHON_MINOR_VER :=
+else
+HOST_PYTHON_MAJOR_VER := $(shell $(HOST_PYTHON_BIN) -c 'import sys ; print (sys.version_info[0])')
+HOST_PYTHON_MINOR_VER := $(shell $(HOST_PYTHON_BIN) -c 'import sys ; print (sys.version_info[1])')
+endif
+endif
+
+# Set the minor version to -1 if there is no minor version detected
+# otherwise some future checks won't work.
+ifeq (,$(HOST_PYTHON_MINOR_VER))
+HOST_PYTHON_MINOR_VER := -1
+endif
+
+# ######
+# Virtual Python environment setup.
+# ######
+
+$(PYTHON_BIN):
+# Check if venv is already setup
+ifeq (,$(wildcard $(PYTHON_BIN)))
+
+# Check if Python could be found on the host machine.
+ifeq (, $(HOST_PYTHON_MAJOR_VER))
+	@echo Could not detect Python on the host system
+	@false
+endif
+
+# Check Python version on the host machine is correct.
+ifeq ($(HOST_PYTHON_MAJOR_VER), 2)
+	@echo Python 2 is not supported
+	@false
+endif
+
+# Check if HOST_PYTHON_MINOR_VER is greater than or equal to the minimun version.
+ifeq ($(shell test $(HOST_PYTHON_MINOR_VER) -ge $(PYTHON_MINIMUN_MINOR_VER); echo $$?), 1)
+	@echo Python version below 3.$(PYTHON_MINIMUN_MINOR_VER) in not supported
+	@false
+endif
+
+# Ensure we're working with Python 3
+ifeq ($(HOST_PYTHON_MAJOR_VER), 3)
+	@echo Setting up virtual environment for Python 3
+	$(HOST_PYTHON_BIN) -m venv ./venv
+endif
+
+	$(PYTHON_BIN) -m pip install pip setuptools wheel --upgrade
+else
+	@echo Venv already set up, not doing anything.
+endif
+
+./venv/pip-dev.done: $(PYTHON_BIN) requirements*.txt
+	@echo Installing application dependencies 
+	$(PYTHON_BIN) -m pip install --requirement requirements-dev.txt
+	echo > $@
+
+# ######
+# Scripts
+# ######
+
+# Setup virtual Python environment
+py-venv-dev: ./venv/pip-dev.done
+
+# Clean up virtual Python environment
+py-distclean:
+	rm -rf ./venv
+
+# Run the ixoncdkingress
+run: py-venv-dev
+	CBC_PATH=$(CBC_PATH) $(PYTHON_BIN) -m ixoncdkingress
