@@ -1,5 +1,9 @@
 PYTHON_MINIMUN_MINOR_VER := 9
-CBC_PATH := './functions/'
+CBC_PATH := ./functions
+PWD := $(shell pwd)
+
+PYTHON_FILES := $(shell find $(CBC_PATH) -type f -name '*.py' -a ! -name 'test_*.py' -a ! -name '*_test.py')
+PYTHON_FILES_BARE := $(shell cd $(CBC_PATH) && find . -type f -name '*.py' -a ! -name 'test_*.py' -a ! -name '*_test.py')
 
 # ######
 # Autodetect Python location and version.
@@ -101,6 +105,17 @@ py-venv-dev: ./venv/pip-dev.done
 # Clean up virtual Python environment
 py-distclean:
 	rm -rf ./venv
+
+bundle:
+ifeq ($(wildcard requirements.txt),)
+	$(error No requirements.txt file found!!)
+endif
+ifeq ($(PYTHON_FILES),)
+	$(error No Python files found!!)
+endif
+	rm -f bundle.zip
+	zip $(PWD)/$@ requirements.txt
+	cd $(CBC_PATH) && zip $(PWD)/$@ $(PYTHON_FILES_BARE)
 
 # Run the ixoncdkingress
 run: py-venv-dev
