@@ -5,6 +5,14 @@ PWD := $(shell pwd)
 PYTHON_FILES := $(shell find $(CBC_PATH) -type f -name '*.py' -a ! -name 'test_*.py' -a ! -name '*_test.py')
 PYTHON_FILES_BARE := $(shell cd $(CBC_PATH) && find . -type f -name '*.py' -a ! -name 'test_*.py' -a ! -name '*_test.py')
 
+IXON_API_BASE_URL := https://api.ayayot.com
+IXON_API_VERSION := 2
+IXON_API_APPLICATION_ID := 9J9IZzeT4xN4
+IXON_API_COMPANY_ID :=
+IXON_API_TEMPLATE_ID :=
+
+-include .env
+
 # ######
 # Autodetect Python location and version.
 # ######
@@ -116,6 +124,24 @@ endif
 	rm -f bundle.zip
 	zip $(PWD)/$@ requirements.txt
 	cd $(CBC_PATH) && zip $(PWD)/$@ $(PYTHON_FILES_BARE)
+
+deploy: bundle
+ifeq ($(IXON_API_COMPANY_ID),)
+	$(error IXON Cloud Company ID not set, create .env and add IXON_API_COMPANY_ID=...)
+endif
+ifeq ($(IXON_API_TEMPLATE_ID),)
+	$(error IXON Cloud Backend Component Template ID not set, create .env and add IXON_API_TEMPLATE_ID=...)
+endif
+ifeq ($(wildcard .accesstoken),)
+    $(error No .accesstoken file found; create .accesstoken and enter a valid access token)
+endif
+	curl -X POST \
+		-H "api-version: $(IXON_API_VERSION)" \
+		-H "api-application: $(IXON_API_APPLICATION_ID)" \
+		-H "api-company: $(IXON_API_COMPANY_ID)" \
+		-H "authorization: Bearer $(shell cat .accesstoken)" \
+		--data-binary @bundle.zip \
+		$(IXON_API_BASE_URL)/backend-component-templates/$(IXON_API_TEMPLATE_ID)/version-upload
 
 # Run the ixoncdkingress
 run: py-venv-dev
