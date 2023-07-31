@@ -9,6 +9,7 @@ This workspace will contain all of your different web hosted functions. You can 
 - Python 3.9 or higher.
 - [zip](https://infozip.sourceforge.net/Zip.html) for building a bundle.
 - [curl](https://curl.se/) for deploying to IXON Cloud.
+- [Docker](https://www.docker.com/) for setting up a DocumentDB for development
 
 ## Getting started
 
