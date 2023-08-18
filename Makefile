@@ -3,7 +3,6 @@ CBC_PATH := ./functions
 PWD := $(shell pwd)
 
 PYTHON_FILES := $(shell find $(CBC_PATH) -type f -name '*.py' -a ! -name 'test_*.py' -a ! -name '*_test.py')
-PYTHON_FILES_BARE := $(shell cd $(CBC_PATH) && find . -type f -name '*.py' -a ! -name 'test_*.py' -a ! -name '*_test.py')
 
 IXON_API_BASE_URL := https://api.ayayot.com
 IXON_API_VERSION := 2
@@ -123,7 +122,7 @@ ifeq ($(PYTHON_FILES),)
 endif
 	rm -f bundle.zip
 	zip $(PWD)/$@ requirements.txt
-	cd $(CBC_PATH) && zip $(PWD)/$@ $(PYTHON_FILES_BARE)
+	zip $(PWD)/$@ $(PYTHON_FILES)
 
 deploy: bundle
 ifeq ($(IXON_API_COMPANY_ID),)
