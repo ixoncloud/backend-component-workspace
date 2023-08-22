@@ -25,13 +25,13 @@ This project already includes an example function, which you can find in **[this
 
 ## Bundling for deployment
 
-This command creates a file `bundle.zip` for deployment to IXON Cloud. 
+This command creates a file `bundle.zip` for deployment to IXON Cloud.
 
 ```sh
 make bundle
 ```
 
-It will include all Python files in the `functions` directory (recursively) that do **not** match `test_*.py` or `*_test.py` (standard [pytest filenames](https://docs.pytest.org/en/7.1.x/getting-started.html#run-multiple-tests)). 
+It will include all Python files in the `functions` directory (recursively) that do **not** match `test_*.py` or `*_test.py` (standard [pytest filenames](https://docs.pytest.org/en/7.1.x/getting-started.html#run-multiple-tests)).
 
 ## Deployment
 
@@ -44,7 +44,7 @@ make deploy
 This command requires two additional files to be created in the root of the project:
 
 - `.env`, containing the company and template id. This file can be checked into version control.
-- `.accesstoken`, containing a valid access token, this is the string of 32 characters that can be found in the `Authorization` header of an API call with the network inspector while browsing the IXON Portal. This file should not be checked into version control. 
+- `.accesstoken`, containing a valid access token, this is the string of 32 characters that can be found in the `Authorization` header of an API call with the network inspector while browsing the IXON Portal. This file should not be checked into version control.
 
 Example `.env` file:
 ```make
@@ -73,3 +73,10 @@ This commands cleans up your virtual python environment setup for this project.
 make py-distclean
 ```
 
+## DocumentDB Client
+
+This project contains a client that can interface with a Document Store. When booting up the workspace
+a Docker container with a Document Store is automatically created. Every time you restart your function, the
+container will be removed and your document store reset.
+
+To read more about how to use the document store please refer to: [Using the Document Store](https://developer.ixon.cloud/docs/document-store)
