@@ -1,12 +1,12 @@
 # IXON Backend Component Workspace
 
-Welcome to your workspace for developing backend component for the IXON Cloud. Note that creating backend components requires you to be able to write Python code.
+Welcome to your workspace for developing Cloud Functions for the IXON Cloud. Note that creating Cloud Functions requires you to be able to write Python code.
 
 This workspace will contain all of your different web hosted functions. You can download this repository as a ZIP file, and check it into your preferred versioning system.
 
 ## Requirements
 
-- Python 3.9 or higher.
+- Python 3.10 or higher (Functions are run in production with Python 3.10).
 - [zip](https://infozip.sourceforge.net/Zip.html) for building a bundle.
 - [curl](https://curl.se/) for deploying to IXON Cloud.
 - [Docker](https://www.docker.com/) for setting up a DocumentDB for development
@@ -21,7 +21,7 @@ To run the project, no additional commands are required, as this is automaticall
 make run
 ```
 
-This project already includes an example function, which you can find in **[this file](./functions/example.py)**. Please see [Developing Cloud Functions](https://developer.ixon.cloud/docs/tutorial-developing-a-backend-component) to find out how you can run and test your function.
+This project already includes an example function, which you can find in **[this file](./functions/example.py)**. Please see [Developing Cloud Functions](https://developer.ixon.cloud/docs/tutorial-developing-a-cloud-function) to find out how you can run and test your function.
 
 ## Bundling for deployment
 
