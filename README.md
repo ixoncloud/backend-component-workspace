@@ -23,19 +23,13 @@ make run
 
 This project already includes an example function, which you can find in **[this file](./functions/example.py)**. Please see [Developing Cloud Functions](https://developer.ixon.cloud/docs/tutorial-developing-a-cloud-function) to find out how you can run and test your function.
 
-## Bundling for deployment
 
-This command creates a file `bundle.zip` for deployment to IXON Cloud.
 
-```sh
-make bundle
-```
+## Deployment to IXON Cloud
 
-It will include all Python files in the `functions` directory (recursively) that do **not** match `test_*.py` or `*_test.py` (standard [pytest filenames](https://docs.pytest.org/en/7.1.x/getting-started.html#run-multiple-tests)).
+> The deployment requires a **company ID** and a **page-component-template ID**. Please refer to the [Getting Started](https://developer.ixon.cloud/docs/getting-started-2) on our developer website how to obtain these (step 4. and 5.)
 
-## Deployment
-
-This command creates and deploys the bundle to IXON Cloud.
+This command creates a bundle and deploys it to IXON Cloud.
 
 ```sh
 make deploy
