@@ -1,1 +1,1 @@
-ixoncdkingress==0.0.10
+ixoncdkingress==0.0.11
