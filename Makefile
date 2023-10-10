@@ -121,8 +121,8 @@ ifeq ($(PYTHON_FILES),)
 	$(error No Python files found!!)
 endif
 	rm -f bundle.zip
-	zip $(PWD)/$@ requirements.txt
-	zip $(PWD)/$@ $(PYTHON_FILES)
+	zip "$(PWD)/$@" requirements.txt
+	zip "$(PWD)/$@" $(PYTHON_FILES)
 
 deploy: bundle
 ifeq ($(IXON_API_COMPANY_ID),)
@@ -132,7 +132,7 @@ ifeq ($(IXON_API_TEMPLATE_ID),)
 	$(error IXON Cloud Backend Component Template ID not set, create .env and add IXON_API_TEMPLATE_ID=...)
 endif
 ifeq ($(wildcard .accesstoken),)
-    $(error No .accesstoken file found; create .accesstoken and enter a valid access token)
+	$(error No .accesstoken file found; create .accesstoken and enter a valid access token)
 endif
 	curl -X POST \
 		-H "api-version: $(IXON_API_VERSION)" \
