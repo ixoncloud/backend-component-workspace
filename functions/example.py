@@ -1,6 +1,7 @@
-from ixoncdkingress.cbc.context import CbcContext
+from ixoncdkingress.function.context import FunctionContext
 
-def greet(context: CbcContext, name: str = 'person'):
+@FunctionContext.expose
+def greet(context: FunctionContext, name: str = 'person'):
     """
     A simple example function that greets someone.
     """
