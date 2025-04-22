@@ -74,3 +74,7 @@ a Docker container with a Document Store is automatically created. Every time yo
 container will be removed and your document store reset.
 
 To read more about how to use the document store please refer to: [Using the Document Store](https://developer.ixon.cloud/docs/document-store)
+
+## Support
+
+For more information and support, please check our [developer website on developer.ixon.cloud](https://developer.ixon.cloud/).
