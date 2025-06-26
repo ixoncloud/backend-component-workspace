@@ -1,0 +1,6 @@
+# This is an example configuration; you can use any valid YAML, and it is directly accessible from the FunctionContext
+#
+# For example, to access the 'username' field below, use `context.config["serviceAccount"]["username"]` in your function code
+serviceAccount:
+  username: user
+  password: pass
