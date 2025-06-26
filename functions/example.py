@@ -5,6 +5,4 @@ def greet(context: FunctionContext, name: str = 'person'):
     """
     A simple example function that greets someone.
     """
-    del context
-
-    return f'Greetings {name}!'
+    return f'Greetings {name}, my username is {context.config["serviceAccount"]["username"]}!'
