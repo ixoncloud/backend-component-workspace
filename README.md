@@ -27,7 +27,7 @@ This project already includes an example function, which you can find in **[this
 
 ## Deployment to IXON Cloud
 
-> The deployment requires a **company ID** and a **page-component-template ID**. Authorisation is also required on the endpoints used. Please refer to the [Getting Started](https://developer.ixon.cloud/docs/getting-started-2) on our developer website how to obtain these.
+> The deployment requires a **Company ID** and a **Cloud Function public ID**. Authorisation is also required on the endpoints used. Please refer to the [Getting Started](https://developer.ixon.cloud/docs/getting-started-2) on our developer website how to obtain these.
 
 This command creates a bundle and deploys it to IXON Cloud.
 
