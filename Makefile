@@ -1,4 +1,4 @@
-PYTHON_MINIMUN_MINOR_VER := 9
+PYTHON_MINIMUM_MINOR_VER := 10
 CBC_PATH := ./functions
 PWD := $(shell pwd)
 
@@ -80,9 +80,9 @@ ifeq ($(HOST_PYTHON_MAJOR_VER), 2)
 	@false
 endif
 
-# Check if HOST_PYTHON_MINOR_VER is greater than or equal to the minimun version.
-ifeq ($(shell test $(HOST_PYTHON_MINOR_VER) -ge $(PYTHON_MINIMUN_MINOR_VER); echo $$?), 1)
-	@echo Python version below 3.$(PYTHON_MINIMUN_MINOR_VER) in not supported
+# Check if HOST_PYTHON_MINOR_VER is greater than or equal to the minimum version.
+ifeq ($(shell test $(HOST_PYTHON_MINOR_VER) -ge $(PYTHON_MINIMUM_MINOR_VER); echo $$?), 1)
+	@echo Python version below 3.$(PYTHON_MINIMUM_MINOR_VER) in not supported
 	@false
 endif
 
