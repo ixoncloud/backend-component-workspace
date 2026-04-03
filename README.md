@@ -6,10 +6,18 @@ This workspace will contain all of your different web hosted functions. You can 
 
 ## Requirements
 
-- Python 3.10 or higher (Functions are run in production with Python 3.10).
+- [Python 3](https://www.python.org/downloads/)*
 - [zip](https://infozip.sourceforge.net/Zip.html) for building a bundle.
 - [curl](https://curl.se/) for deploying to IXON Cloud.
 - [Docker](https://www.docker.com/) for setting up a DocumentDB for development
+
+*: Which minor version of Python you need to have depends on the major version of the `ixoncdkingress` you are using.
+This is also the Python version that is used to run the Cloud Function in production.
+
+| ixoncdkingress | Python |
+|----------------|--------|
+| 0.x.x          | 3.10.x |
+| 1.x.x          | 3.12.x |
 
 ## Getting started
 
