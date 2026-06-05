@@ -34,4 +34,11 @@ else:
 url = url.replace("{publicId}", template_id)
 
 res_upload = requests.post(url, data=bundle, headers={**headers, "Content-Type": "application/zip"})
-print(res_upload.text)
+data_upload = res_upload.json().get("data")
+
+if data_upload and isinstance(data_upload, dict) and data_upload.get("companyToBeProvisioned"):
+    print("This is one of your first cloud function uploads. IXON has to prepare your company for "
+          "this to work. Your company will be configured within 2 business days, whereafter your "
+          "uploaded cloud function will become available.")
+else:
+    print(res_upload.text)
