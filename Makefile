@@ -82,7 +82,7 @@ endif
 
 # Check if HOST_PYTHON_MINOR_VER is greater than or equal to the minimum version.
 ifeq ($(shell test $(HOST_PYTHON_MINOR_VER) -ge $(PYTHON_MINIMUM_MINOR_VER); echo $$?), 1)
-	@echo Python version below 3.$(PYTHON_MINIMUM_MINOR_VER) in not supported
+	@echo Python version below 3.$(PYTHON_MINIMUM_MINOR_VER) is not supported
 	@false
 endif
 
@@ -134,13 +134,14 @@ endif
 ifeq ($(wildcard .accesstoken),)
 	$(error No .accesstoken file found; create .accesstoken and enter a valid access token)
 endif
-	curl -X POST \
-		-H "api-version: $(IXON_API_VERSION)" \
-		-H "api-application: $(IXON_API_APPLICATION_ID)" \
-		-H "api-company: $(IXON_API_COMPANY_ID)" \
-		-H "authorization: Bearer $(shell cat .accesstoken)" \
-		--data-binary @bundle.zip \
-		$(IXON_API_BASE_URL)/backend-component-templates/$(IXON_API_TEMPLATE_ID)/version-upload
+	ACCESS_TOKEN_FILE=".accesstoken" \
+	API_APPLICATION_ID=$(IXON_API_APPLICATION_ID) \
+	API_BASE_URL=$(IXON_API_BASE_URL) \
+	API_VERSION=$(IXON_API_VERSION) \
+	BUNDLE_FILE="bundle.zip" \
+	COMPANY_ID=$(IXON_API_COMPANY_ID) \
+	TEMPLATE_ID=$(IXON_API_TEMPLATE_ID) \
+	$(PYTHON_BIN) workspace/upload.py
 
 # Run the ixoncdkingress
 run: py-venv-dev
