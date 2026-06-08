@@ -1,4 +1,4 @@
-PYTHON_MINIMUM_MINOR_VER := 10
+PYTHON_MINIMUM_MINOR_VER := 12
 CBC_PATH := ./functions
 PWD := $(shell pwd)
 
