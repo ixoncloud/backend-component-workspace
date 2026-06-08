@@ -6,16 +6,15 @@ This workspace will contain all of your different web hosted functions. You can 
 
 ## Requirements
 
-- [Python 3](https://www.python.org/downloads/)*
+- [Python 3.12 or higher](https://www.python.org/downloads/) *
 - [zip](https://infozip.sourceforge.net/Zip.html) for building a bundle.
 - [Docker](https://www.docker.com/) for setting up a DocumentDB for development
 
-*: Which minor version of Python you need to have depends on the major version of the `ixoncdkingress` you are using.
+*: Which minor version of Python you must have depends on the major version of the `ixoncdkingress` you are using.
 This is also the Python version that is used to run the Cloud Function in production.
 
 | ixoncdkingress | Python |
 |----------------|--------|
-| 0.x.x          | 3.10.x |
 | 1.x.x          | 3.12.x |
 
 ## Getting started
