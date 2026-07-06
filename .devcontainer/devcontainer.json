@@ -1,0 +1,41 @@
+{
+  "name": "IXON Backend Component Workspace",
+
+  // Pinned to Python 3.12 to match ixoncdkingress 1.x.x in production.
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-trixie",
+
+  "features": {
+    // Creates the non-root "ixon-cdk" user (the base image only ships a
+    // "vscode" user). remoteUser below runs as this account.
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "ixon-cdk"
+    },
+    // ixoncdkingress spins up a MongoDB container (via the Docker SDK) for the
+    // dev document store and connects to it at localhost, so the daemon must
+    // live inside this container (docker-in-docker, not the host's daemon).
+    // moby:false installs Docker CE from Docker's apt repo; the default Moby
+    // packages aren't published for Debian trixie.
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false
+    }
+  },
+
+  // Set up the virtual environment + dev dependencies once the container is
+  // created.
+  "postCreateCommand": "make py-venv-dev",
+
+  // ixoncdkingress serves on 8080 by default.
+  "forwardPorts": [8080],
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-python.vscode-pylance"],
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python3",
+        "python.terminal.activateEnvironment": true
+      }
+    }
+  },
+
+  "remoteUser": "ixon-cdk"
+}
