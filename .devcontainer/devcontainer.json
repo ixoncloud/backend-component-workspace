@@ -24,8 +24,8 @@
   // created.
   "postCreateCommand": "make py-venv-dev",
 
-  // ixoncdkingress serves on 8080 by default.
-  "forwardPorts": [8080],
+  // ixoncdkingress serves on 8020 by default.
+  "forwardPorts": [8020],
 
   "customizations": {
     "vscode": {
